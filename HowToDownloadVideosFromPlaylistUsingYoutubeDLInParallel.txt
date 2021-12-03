@@ -1,0 +1,4 @@
+youtube-dl --get-id "$PLAYLIST_URL" \
+  | xargs -I '{}' -P 5 youtube-dl 'https://youtube.com/watch?v={}'
+
+The first command (--get-id) gets a list of video IDs in the playlist, one per line. Those IDs get piped to xargs, which calls individual instances of youtube-dl to download each video. Because I’m passing -P 5 to xargs, it runs up to 5 parallel instances of youtube-dl at a time.
